@@ -5,7 +5,6 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
     int t;
     cin >> t;
     while (t--)
@@ -19,21 +18,25 @@ int main()
             pos[a[i]] = i;
         }
         bool ok = true;
-        for (int i = 1; i <= n && ok; i++)
+        for (int v = n; v >= 1 && ok; v--)
         {
-            int p = pos[i];
-            while (p > i && p / 2 >= i)
+            int p = pos[v];
+            while (p > v)
             {
+                if (p % 2 != 0)
+                {
+                    ok = false;
+                    break;
+                }
                 int q = p / 2;
                 swap(a[p], a[q]);
                 pos[a[p]] = p;
                 pos[a[q]] = q;
                 p = q;
             }
-            if (p != i)
+            if (p != v)
                 ok = false;
         }
-        cout << (ok ? "YES" : "NO") << endl;
+        cout << (ok ? "YES" : "NO") << "\n";
     }
-    return 0;
 }
